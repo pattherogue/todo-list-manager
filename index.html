@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <form action="/add_task" method="POST">
+        <input type="text" name="task" placeholder="Add a task" required>
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.task }}
+                {% if task.completed %}
+                    (Completed)
+                {% endif %}
+                <form action="/remove_task" method="POST" style="display: inline;">
+                    <input type="hidden" name="task" value="{{ task.task }}">
+                    <button type="submit">Remove</button>
+                </form>
+                <form action="/mark_completed" method="POST" style="display: inline;">
+                    <input type="hidden" name="task" value="{{ task.task }}">
+                    <button type="submit">Mark as Completed</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
